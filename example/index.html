@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+		<title>App Launcher Popover - Example</title>
+
+		<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+
+		<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+		<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+
+		<script src="../dist/jquery.app-launcher-popover.min.js"></script>
+
+		<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<a id="element" href="#" data-toggle="app-launcher-popover">Popover</a>
+		<script>
+			$( function() {
+				$( "#element" ).appLauncherPopover( {
+					apps: [
+						{
+							name: 'BMW',
+							url: 'http://www.bmw.com',
+							background: '#e8edff url(\'http://www.emblemmart.com/emblems-badges-insignias/media/logos/medium/BMW.gif\') 50% 10px no-repeat'
+						},
+						{
+							name: 'Google',
+							url: 'http://www.google.com',
+							background: '#e8fdff url(\'https://www.google.be/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png\') 50% 20px/80px 40px no-repeat'
+						},
+						{
+							name: 'Sharepoint van Microsoft',
+							url: 'http://www.sharepoint.com',
+							background: '#e8edff'
+						}
+					]
+				} );
+			} );
+		</script>
+	</body>
+</html>
