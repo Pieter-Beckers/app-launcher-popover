@@ -1,6 +1,6 @@
 # app-launcher-popover
 
-A bootstrap popover with buttons for apps to launch
+A bootstrap popover jquery plugin with links for apps to launch
 
 ## Requirements
 
@@ -16,6 +16,20 @@ A bootstrap popover with buttons for apps to launch
 - Put `data-toggle="app-launcher-popover"` on an element (eg. button or a tag)
 - To enable the popover use: `$( "#your-element" ).appLauncherPopover({apps: [...] })`
 - `apps` property: `array` of objects with properties:
-- - `name`: `string` of the visible link name
-- - `background`: `string` css for background
-- - `url`: `string` url to navigate to
+  - `name`: `string` of the visible link name
+  - `background`: `string` css for background
+    - for example: `#e8fdff url('https://www.google.be/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png') 50%/98px no-repeat`
+  - `url`: `string` url to navigate to
+- `rowLength`: `number`: length of the row: number of apps on one row in the popover, defaults to 5
+
+- To change the text style you can use the css class `app-launcher-popover-text`:
+For example:
+```
+.app-launcher-popover-text {
+	color: white;
+	font-size: 18px;
+}
+
+```
+
+> !Warning!: be careful for XSS when apps are user-adjustable (popover is HTML enabled)
