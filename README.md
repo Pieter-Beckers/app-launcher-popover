@@ -22,14 +22,17 @@ A bootstrap popover jquery plugin with links for apps to launch
   - `url`: `string` url to navigate to
 - `rowLength`: `number`: length of the row: number of apps on one row in the popover, defaults to 5
 
-- To change the text style you can use the css class `app-launcher-popover-text`:
+- To change the style you can use the following css class 
+  - `app-launcher-popover`
+  - `app-launcher-popover-button`
+  - `app-launcher-popover-text`
+  - `app-launcher-popover-row`
 For example:
 ```
 .app-launcher-popover-text {
 	color: white;
 	font-size: 18px;
 }
-
 ```
 
 > !Warning!: be careful for XSS when apps are user-adjustable (popover is HTML enabled)

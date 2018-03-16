@@ -36,7 +36,7 @@
 
 	QUnit.test( "enable custom config", function( assert ) {
 		$fixture.appLauncherPopover( {
-			apps: [{name: "app-name"}]
+			apps: [{name: "app-name", backgroundUrl: "http://dummy", url: "http://dummy-url"}]
 		} );
 
 		var pluginData = $fixture.data( "plugin_appLauncherPopover" );
@@ -44,7 +44,7 @@
 		assert.deepEqual(
 			pluginData.settings,
 			{
-				apps: [{name: "app-name"}]
+				apps: [{name: "app-name", backgroundUrl: "http://dummy", url: "http://dummy-url"}]
 			},
 			"extend plugin settings"
 		);

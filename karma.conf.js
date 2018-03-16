@@ -3,7 +3,7 @@ module.exports = function( config ) {
 	config.set( {
 		files: [
 			"node_modules/jquery/dist/jquery.js",
-			"src/*",
+			"dist/jquery.app-launcher-popover.js",
 			"test/*"
 		],
 		browsers: [ "PhantomJS" ],

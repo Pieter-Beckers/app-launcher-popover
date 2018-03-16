@@ -1,6 +1,6 @@
 ;( function( $, window, document ) {
 	"use strict";
-	var pluginName = "appLauncherPopover",
+	let pluginName = "appLauncherPopover",
 		defaults = {
 			apps: []
 		};
@@ -12,34 +12,71 @@
 
 	$.extend( Plugin.prototype, {
 		init: function() {
-			var links = this.settings.apps.reduce( function( linksString, app ) {
-				var url = app.url ? app.url : "#";
-				var innerContentStyle = "\"height: 98px;padding-left: 5px;display: table-cell;" +
-					"vertical-align: bottom;white-space: normal;\"";
-				var innerContent = "<div style=" + innerContentStyle + ">" +
-					"<div class=\"app-launcher-popover-text\">" + ( app.name ? app.name : "" ) +
-					"</div></div>";
-				var aTagTemplate = "<a style=\"background:url(" + app.backgroundUrl + ") " +
-					"50% 50%/100px no-repeat;height:100px;width:100px;margin:2px;padding:0;" +
-					"text-align: left;\"" +
-					"href=\"" + url + "\" role=\"button\" class=\"btn btn-default\">" +
-					innerContent + "</a>";
-				return linksString + aTagTemplate;
-			}, "" );
-			var widthInPxPerApp = 104;
-			var rowLength = this.settings.rowLength ? this.settings.rowLength : 5;
-			var width = rowLength * widthInPxPerApp + 12;
-			var style = "width:" + width + "px;max-width:" + width + "px;";
-			$( document ).ready( function() {
-				$( "[data-toggle=\"app-launcher-popover\"]" ).popover( {
-					content: links,
+			const rowLength = this.settings.rowLength ? this.settings.rowLength : 5;
+			let apps = this.settings.apps.slice();
+			let appsGrouped = [];
+			while ( apps.length ) {
+				appsGrouped.push( apps.splice( 0, rowLength ) );
+			}
+			let content = appsGrouped
+				.reduce( ( total, apps ) => total + this.createButtonRowTemplate( apps ), "" );
+			$( document ).ready( () => {
+				$( `[data-toggle="app-launcher-popover"]` ).popover( {
+					content: content,
 					placement: "bottom",
 					html: true,
-					template: "<div class=\"popover\" style=\"" + style + "\" " +
-					"role=\"tooltip\"><div class=\"arrow\"></div><div class=\"popover-content\" " +
-					"style=\"padding: 4px;\">" + links + "</div></div>"
+					template: this.createPopoverTemplate( content )
 				} );
 			} );
+		},
+		createPopoverTemplate: function( content ) {
+			return `
+				<div class="popover app-launcher-popover" role="tooltip">
+					<style>
+						.app-launcher-popover {
+							max-width: none;
+						}
+						.app-launcher-popover-button {
+							height:150px;
+							width:150px;
+							margin:5px;
+							padding:0;
+							text-align: left;
+						}
+						.app-launcher-popover-text {
+							height: inherit;
+							padding: 5px;
+							display: table-cell;
+							vertical-align: bottom;
+							white-space: normal;
+						}
+						.app-launcher-popover-row {
+							display: table;
+						}
+					</style>
+					<div class="arrow"></div>
+					<div class="popover-content grid" style="padding: 10px;">
+						${content}
+					</div>
+				</div>
+			`;
+		},
+		createButtonRowTemplate: function( apps ) {
+			let buttons = apps
+				.reduce( ( total, app ) => total + this.createButtonTemplate( app ), "" );
+			return `<div class="app-launcher-popover-row">${buttons}</div>`;
+		},
+		createButtonTemplate: function( app ) {
+			return `
+				<a style="background:url(${app.backgroundUrl}) 50% 50%/100px no-repeat;"
+				   href="${app.url ? app.url : "#"}"
+				   role="button"
+				   class="btn btn-default app-launcher-popover-button col-lg-1">
+						<div class="app-launcher-popover-text">
+							${app.name ? app.name : ""}
+						</div>
+				</a>
+			`;
 		}
 	} );
 	$.fn[ pluginName ] = function( options ) {
