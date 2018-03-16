@@ -17,8 +17,8 @@ A bootstrap popover jquery plugin with links for apps to launch
 - To enable the popover use: `$( "#your-element" ).appLauncherPopover({apps: [...] })`
 - `apps` property: `array` of objects with properties:
   - `name`: `string` of the visible link name
-  - `background`: `string` css for background
-    - for example: `#e8fdff url('https://www.google.be/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png') 50%/98px no-repeat`
+  - `backgroundUrl`: `string` url for the background image
+    - for example: `https://www.google.be/images/branding/googlelogo/2x/googlelogo_color_120x44dp.png`
   - `url`: `string` url to navigate to
 - `rowLength`: `number`: length of the row: number of apps on one row in the popover, defaults to 5
 
